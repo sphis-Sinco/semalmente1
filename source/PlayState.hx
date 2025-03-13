@@ -17,6 +17,9 @@ class PlayState extends FlxState
 	var down_key:Bool;
 	var up_key:Bool;
 
+	// Player variables
+	var player_movement_speed = 10;
+
 	override public function create()
 	{
 		playerInitalization();
@@ -31,23 +34,43 @@ class PlayState extends FlxState
 		add(player);
 	}
 
+	var tick:Int = 0;
+	final tick_goal = 5;
+
 	override public function update(elapsed:Float)
 	{
-		controlManagement();
+		tick++;
+
+		if (tick == tick_goal)
+		{
+			tick = 0;
+			controlManagement();
+		}
 
 		super.update(elapsed);
 	}
 	function controlManagement():Void
 	{
-		left_key = ControlManagement.anyJustReleased([LEFT, A]);
-		right_key = ControlManagement.anyJustReleased([RIGHT, D]);
-		down_key = ControlManagement.anyJustReleased([DOWN, S]);
-		up_key = ControlManagement.anyJustReleased([UP, W]);
+		left_key = ControlManagement.anyPressed([LEFT, A]);
+		right_key = ControlManagement.anyPressed([RIGHT, D]);
+		down_key = ControlManagement.anyPressed([DOWN, S]);
+		up_key = ControlManagement.anyPressed([UP, W]);
 
-		if (left_key) {}
-		else if (right_key) {}
-
-		if (down_key) {}
-		else if (up_key) {}
+		if (left_key)
+		{
+			player.x -= player_movement_speed;
+		}
+		else if (right_key)
+		{
+			player.x += player_movement_speed;
+		}
+		else if (down_key)
+		{
+			player.y += player_movement_speed;
+		}
+		else if (up_key)
+		{
+			player.y -= player_movement_speed;
+		}
 	}
 }
