@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -9,8 +10,7 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		player = new FlxSprite();
-		player.makeGraphic(32, 32, 0xFF0000);
+		player = new FlxSprite().makeGraphic(32, 32, FlxColor.LIME);
 		player.screenCenter();
 		add(player);
 
